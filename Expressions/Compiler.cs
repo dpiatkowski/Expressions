@@ -614,11 +614,9 @@ namespace Expressions
                     else if (arguments.Count == mandatoryParameterCount + 1)
                     {
                         var lastArgument = arguments[arguments.Count - 1];
-                        var constant = lastArgument as Constant;
 
                         // Null arguments are passed blindly.
-
-                        if (constant != null && constant.Value == null)
+                        if (lastArgument is Constant constant && constant.Value == null)
                         {
                             ILUtil.EmitNull(_il);
                             emitted = true;

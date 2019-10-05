@@ -158,9 +158,10 @@ namespace Expressions
         {
             if (binaryExpression.Right is AstNodeCollection)
             {
-                var arguments = new List<IExpression>();
-
-                arguments.Add(binaryExpression.Left.Accept(this));
+                var arguments = new List<IExpression>
+                {
+                    binaryExpression.Left.Accept(this)
+                };
 
                 foreach (var argument in ((AstNodeCollection)binaryExpression.Right).Nodes)
                 {
@@ -496,9 +497,7 @@ namespace Expressions
         {
             var arguments = ResolveArguments(methodCall.Arguments);
 
-            var identifierAccess = methodCall.Operand as IdentifierAccess;
-
-            if (identifierAccess != null)
+            if (methodCall.Operand is IdentifierAccess identifierAccess)
             {
                 var result = ResolveGlobalMethod(identifierAccess.Name, arguments);
 
@@ -511,9 +510,7 @@ namespace Expressions
                 );
             }
 
-            var memberAccess = methodCall.Operand as MemberAccess;
-
-            if (memberAccess != null)
+            if (methodCall.Operand is MemberAccess memberAccess)
             {
                 var operand = memberAccess.Operand.Accept(this);
 

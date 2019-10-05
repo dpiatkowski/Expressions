@@ -82,10 +82,9 @@ namespace Expressions
 
             var assemblyName = new AssemblyName(name);
 
-            var assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(
-                assemblyName,
-                AssemblyBuilderAccess.RunAndSave
-            );
+
+
+            var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
 
             var moduleBuilder = assemblyBuilder.DefineDynamicModule(name);
 
@@ -97,10 +96,11 @@ namespace Expressions
 
             new Compiler(il, resolver).Compile(expression);
 
-            programClass.CreateType();
+            programClass.CreateTypeInfo();
 
-            assemblyBuilder.SetEntryPoint(programClass.GetMethod("Main"));
-            assemblyBuilder.Save(name);
+            // TODO: this seems not be supported at the moment
+            //assemblyBuilder.SetEntryPoint(programClass.GetMethod("Main"));
+            //assemblyBuilder.Save(name);
         }
 #endif
 

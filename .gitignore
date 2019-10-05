@@ -8,3 +8,7 @@ Thumbs.db
 /*.dotCover
 /Everything.sln
 /_ReSharper.*
+/output
+/Generated
+/bin
+/obj

@@ -117,12 +117,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Expressions\Expressions.csproj">
-      <Project>{CC920AB6-D51E-4227-AFAD-112C358B0FC8}</Project>
-      <Name>Expressions</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\CheckedTests.txt" />
     <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\IndividualTests.xml" />
     <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\InvalidExpressions.txt" />
