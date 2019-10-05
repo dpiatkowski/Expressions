@@ -190,8 +190,10 @@ namespace Expressions
         {
             if (options.ResultType == null)
             {
-                options = new BoundExpressionOptions(options);
-                options.ResultType = typeof(T);
+                options = new BoundExpressionOptions(options)
+                {
+                    ResultType = typeof(T)
+                };
             }
 
             return (T)base.Invoke(expressionContext, options);

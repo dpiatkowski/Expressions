@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Expressions.Expressions;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace Expressions
 {
@@ -135,7 +134,7 @@ namespace Expressions
                 {
                     var method = _resolver.FindOperatorMethod(
                         methodName,
-                        new[] { typeof(Conversions) },
+                        Array.Empty<Type>(),
                         null,
                         new[] { cast.Operand.Type }
                     );
