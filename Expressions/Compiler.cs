@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
-using System.Text;
 using Expressions.Expressions;
 
 namespace Expressions
@@ -32,7 +30,8 @@ namespace Expressions
             if (
                 (expression.Type.IsValueType || _resolver.Options.ResultType.IsValueType) &&
                 expression.Type != _resolver.Options.ResultType
-            ) {
+            )
+            {
                 try
                 {
                     ExtendedConvertToType(expression.Type, _resolver.Options.ResultType, true);
@@ -194,7 +193,8 @@ namespace Expressions
                         binaryExpression.ExpressionType == ExpressionType.Equals ||
                         binaryExpression.ExpressionType == ExpressionType.NotEquals
                     )
-                ) {
+                )
+                {
                     binaryExpression.Left.Accept(this);
                     binaryExpression.Right.Accept(this);
 
@@ -508,7 +508,8 @@ namespace Expressions
                     fieldAccess.FieldInfo.FieldType.IsValueType &&
                     fieldAsParameter &&
                     fieldAccess.FieldInfo.IsInitOnly
-                ) {
+                )
+                {
                     var builder = _il.DeclareLocal(fieldAccess.FieldInfo.FieldType);
 
                     _il.Emit(OpCodes.Stloc, builder);

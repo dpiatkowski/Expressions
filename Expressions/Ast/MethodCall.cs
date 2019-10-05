@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Expressions.Ast
+﻿namespace Expressions.Ast
 {
     internal class MethodCall : IAstNode
     {
@@ -22,7 +18,7 @@ namespace Expressions.Ast
             Operand = operand;
             Arguments = arguments;
         }
-        
+
         public T Accept<T>(IAstVisitor<T> visitor)
         {
             return visitor.MethodCall(this);

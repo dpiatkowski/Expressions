@@ -13,12 +13,11 @@
  *
  * ***************************************************************************/
 
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-﻿using System.Diagnostics;
-﻿using System.Reflection;
-﻿using System.Text;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Expressions
 {
@@ -133,7 +132,7 @@ namespace Expressions
             }
             else
             {
-                return 
+                return
                     toType.IsAssignableFrom(fromType) ||
                     (!toType.IsValueType && toIsNull);
             }

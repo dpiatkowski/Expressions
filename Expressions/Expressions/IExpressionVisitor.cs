@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Expressions.Expressions
+﻿namespace Expressions.Expressions
 {
     internal interface IExpressionVisitor
     {

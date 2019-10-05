@@ -144,11 +144,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Expressions\Key.snk">
-      <Link>Key.snk</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\CheckedTests.txt" />
     <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\IndividualTests.xml" />
     <EmbeddedResource Include="FleeLanguage\BulkTests\TestScripts\InvalidExpressions.txt" />

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using System.Text;
 using Expressions.Ast;
 using Expressions.Expressions;
 using BinaryExpression = Expressions.Ast.BinaryExpression;
@@ -71,7 +70,7 @@ namespace Expressions
                     else
                         operatorName = "op_BitwiseOr";
                     break;
-                    
+
                 case ExpressionType.Xor:
                     operatorName = "op_ExclusiveOr";
                     break;
@@ -139,7 +138,7 @@ namespace Expressions
                     commonType = ResolveExpressionCommonType(left.Type, right.Type, binaryExpression.Type == ExpressionType.Add, false, false);
                     break;
             }
-            
+
             var type = ResolveExpressionType(left.Type, right.Type, commonType, binaryExpression.Type);
 
             var expressionType = binaryExpression.Type;
@@ -249,7 +248,8 @@ namespace Expressions
                 if (
                     import.Namespace != null &&
                     _resolver.IdentifiersEqual(import.Namespace, identifierAccess.Name)
-                ) {
+                )
+                {
                     if (import.Type != null)
                         return new TypeAccess(import.Type);
                     else
@@ -319,7 +319,8 @@ namespace Expressions
                     if (
                         @interface.IsGenericType &&
                         @interface.GetGenericTypeDefinition() == typeof(IBoundExpression<>)
-                    ) {
+                    )
+                    {
                         var resultType = identifierType.GetGenericArguments()[0];
 
                         return new Expressions.Cast(methodCall, resultType);

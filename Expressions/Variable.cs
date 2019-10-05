@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Expressions
+﻿namespace Expressions
 {
     /// <summary>
     /// Describes a variable used in an <see cref="ExpressionContext"/>.

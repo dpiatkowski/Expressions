@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+﻿using System.Globalization;
 using Expressions.Ast;
 
 namespace Expressions
@@ -25,7 +22,8 @@ namespace Expressions
                         unparsedNumber != null &&
                         TypeUtil.IsConvertible(unparsedNumber.Type) &&
                         (unparsedNumber.NumberStyles & NumberStyles.AllowHexSpecifier) == 0
-                    ) {
+                    )
+                    {
                         // Actually parse the constant including the minus sign.
 
                         unparsedNumber = new UnparsedNumber("-" + unparsedNumber.Value, unparsedNumber.Type, unparsedNumber.NumberStyles | NumberStyles.AllowLeadingSign);

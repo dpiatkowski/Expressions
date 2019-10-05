@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Expressions
+﻿namespace Expressions
 {
     /// <summary>
     /// Represents a bound expression.

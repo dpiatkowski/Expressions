@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Expressions.Ast;
+using Expressions.Expressions;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
-using System.Text;
-using Expressions.Ast;
-using Expressions.Expressions;
 
 namespace Expressions
 {
