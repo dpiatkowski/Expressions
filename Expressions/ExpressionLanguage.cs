@@ -13,9 +13,5 @@
         /// C# language.
         /// </summary>
         Csharp,
-        /// <summary>
-        /// VB.NET language.
-        /// </summary>
-        VisualBasic
     }
 }

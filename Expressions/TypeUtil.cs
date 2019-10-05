@@ -174,10 +174,6 @@ namespace Expressions
                     CsharpBuiltInTypes.TryGetValue(name, out result);
                     break;
 
-                case ExpressionLanguage.VisualBasic:
-                    VisualBasicBuiltInTypes.TryGetValue(name, out result);
-                    break;
-
                 default:
                     throw new ArgumentOutOfRangeException("language");
             }

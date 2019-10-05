@@ -39,9 +39,6 @@ namespace Expressions
                 case ExpressionLanguage.Csharp:
                     return Csharp.CsharpParser.Parse(expression);
 
-                case ExpressionLanguage.VisualBasic:
-                    return VisualBasic.VisualBasicParser.Parse(expression);
-
                 default:
                     throw new ArgumentOutOfRangeException("language");
             }

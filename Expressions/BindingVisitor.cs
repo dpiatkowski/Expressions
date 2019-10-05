@@ -505,9 +505,6 @@ namespace Expressions
                 if (result != null)
                     return result;
 
-                if (_resolver.DynamicExpression.Language == ExpressionLanguage.VisualBasic)
-                    return Index(methodCall.Operand, methodCall.Arguments);
-
                 throw new ExpressionsException(
                     String.Format("Cannot resolve symbol '{0}'", identifierAccess.Name),
                     ExpressionsExceptionType.UndefinedName
@@ -543,9 +540,6 @@ namespace Expressions
                         return result;
                 }
             }
-
-            if (_resolver.DynamicExpression.Language == ExpressionLanguage.VisualBasic)
-                return Index(methodCall.Operand, methodCall.Arguments);
 
             throw new ExpressionsException("Cannot resolve symbol", ExpressionsExceptionType.UndefinedName);
         }
