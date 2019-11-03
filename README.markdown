@@ -2,18 +2,22 @@
 
 LGPL License.
 
-[Download from NuGet](http://nuget.org/packages/Expressions).
-
 ## Introduction
 
-Expressions is an expression parser and evaluator with support for C#, VB.NET and Flee.
+This is a fork of [Expressions](https://github.com/pvginkel/Expressions) library changed to run on .NET Standard 2.0 runtimes. 
+
+There are 2 major differences from the original:
+
+1. Support for VB.NET has been removed
+2. Invoking `DynamicMethod` behaves diffrently becasue of `ref returns` introduced to the platform. That means some of test cases are invalid.
+
+--- 
+
+Expressions is an expression parser and evaluator with support for C# and Flee.
 
 The Expressions project is heavily based on [Flee](http://flee.codeplex.com/). Flee is
 a library which parses and evaluates the Flee expression language by compiling it into
-MSIL using the
-[DynamicMethod](http://msdn.microsoft.com/en-us/library/system.reflection.emit.dynamicmethod.aspx)
-and [Emit](http://msdn.microsoft.com/en-us/library/system.reflection.emit.aspx)
-infrastructure introduced in .NET 2.0.
+MSIL using the `System.Reflection.Emit` package.
 
 Even though Flee is a very capable library to perform these tasks, it has a number
 limitations, specifically:
@@ -28,7 +32,7 @@ limitations, specifically:
 The Expressions library solves these issues by introduction the following new
 functionality:
 
-* Expressions can be written in C#, VB.NET and Flee;
+* Expressions can be written in C# and Flee;
 
 * Compiling, binding and invoking expressions is split up into three different phases.
   Compiled and bound expressions are automatically cached and a previous parse tree
@@ -87,7 +91,7 @@ phase:
   binding process:
 
   * OwnerType: The owner of an expression is an object which kind of functions
-    like this this (Me in VB.NET) of an expression. Static and instance properties,
+    like this this of an expression. Static and instance properties,
     methods and fields are automatically made available in the expression;
 
   * Imports: Imports are additional types of which the static methods, properties
@@ -165,13 +169,12 @@ it automatically recompiled with the new context.
 
 ## Language support
 
-For C# and VB.NET, most of the expressions that are supported by that
+For C# most of the expressions that are supported by that
 language, are supported by Expressions. For detailed information about
 the supported expressions, the ANTLR grammar files are available. One
 specific addition made to the C# parser is the use of literal dates.
 This is a feature from VB.NET which I was compelled to include in the
 C# parser. The Flee language also supports ## for specifying TimeSpan's.
-This feature is included in both the C# and VB.NET parser.
 
 The Flee language is very well documented and can be found on the
 [Language Reference](http://flee.codeplex.com/wikipage?title=LanguageReference)
@@ -184,7 +187,7 @@ Flee library, there are a number of unsupported features and limitations:
 
 * Flee supports culture sensitive parsing and providing the string quote
   character of an expression. Since Expressions is based on ANTLR, this
-  is not supported. For C# and VB.NET, numbers and dates are written just
+  is not supported. For C# numbers and dates are written just
   like they in the language itself. For Flee, the default settings of the
   Flee parser are used;
 
@@ -214,6 +217,4 @@ Flee library, there are a number of unsupported features and limitations:
 * The Flee calculation engine is not part of the Expressions library.
 
 The above list of unsupported features are features that will not be
-implemented in the Expression library. There are however a number
-of features which are scheduled. These are created as issues in
-the [issues section](https://github.com/pvginkel/Expressions/issues).
+implemented in the Expression library.

@@ -131,7 +131,6 @@ object;cast(StringArr, string[]);System.string[]
 double;cast(100,double);100.0
 object;cast(100, valuetype);System.int32
 object;cast(true,object);System.boolean
-object;cast("abc",object);System.string
 int32;cast('^', int);94
 double;cast('^', double);94.0
 object;cast(Icloneablea, object);System.string
@@ -150,8 +149,6 @@ object;cast(intarr, Array);System.int32[]
 object;cast(arraya, object);System.string[]
 object;cast(stringarr, string[]);System.string[]
 object;cast(intarr, int[]);System.int32[]
-object;cast(DelegateA, Delegate);System.AppDomainInitializer
-object;cast(DelegateA, object);System.AppDomainInitializer
 ' Casts to numeric types
 int32;cast(100.34, int);100
 byte;cast(100L,byte);100
@@ -164,14 +161,6 @@ object;cast(objectstringa, string);System.string
 object;cast(ExceptionA, ArgumentException);System.ArgumentException
 '	interface to class
 object;cast(IComparableString, string);System.string
-'	System.delegate to delegate type
-object;cast(delegateANull, AppDomainInitializer);System.void
-'	System.delegate to implemented interface
-object;cast(delegateANull, ICloneable);System.void
-'	System.delegate to concrete delegate
-object;cast(delegateANull,AppDomainInitializer);system.void
-'	Concrete delegate to implemented interface
-object;cast(DelegateA, ICloneable);System.AppDomainInitializer
 '	System.array to array type
 object;cast(ArrayA, string[]);System.string[]
 '	System.array to implemented interface
@@ -187,10 +176,6 @@ object;cast(stringarr, object[]);System.string[]
 object;cast(stringarr, IComparable[]);System.string[]
 '		to base type
 ' *** Allowed but produces InvalidCastException; c# does same thing.... System.object;cast(stringarr, object[]);System.string[]
-'	With global type
-object;cast(Encodinga, Encoding);System.text.asciiencoding
-object;cast(Encodinga, ASciiEncoding);System.text.asciiencoding
-object;cast(AsciiEncodingArr, encoding[]);System.text.encoding[]
 ' Enums
 int32;cast(DayOfWeek.Friday, int);5
 byte;cast(DayOfWeek.Friday, byte);5

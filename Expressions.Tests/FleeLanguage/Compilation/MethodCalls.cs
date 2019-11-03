@@ -117,7 +117,7 @@ namespace Expressions.Test.FleeLanguage.Compilation
         {
             var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
-            Resolve(context, "Owner.ObjectParams(0, \"a\")", 2);
+            Resolve(context, "Owner.ObjectParams(0, 1)", 2);
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace Expressions.Test.FleeLanguage.Compilation
         {
             var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
-            Resolve(context, "Owner.ObjectParams(0, \"a\", \"a\")", 4);
+            Resolve(context, "Owner.ObjectParams(0, 1, 2)", 4);
         }
 
         [Fact]
@@ -149,7 +149,7 @@ namespace Expressions.Test.FleeLanguage.Compilation
         {
             var context = new ExpressionContext(new[] { new Import("Owner", typeof(Owner)) });
 
-            Resolve(context, "Owner.ObjectParams(0, null, \"a\", null)", 4);
+            Resolve(context, "Owner.ObjectParams(0, null, 1, null)", 4);
         }
 
         [Fact]

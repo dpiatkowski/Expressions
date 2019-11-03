@@ -7,7 +7,7 @@ namespace Expressions
 {
     internal sealed class BoundExpression : IBoundExpression
     {
-        private readonly DynamicSignature _compiledMethod;
+        private readonly Func<object[], object> _compiledMethod;
         private readonly CachedDynamicExpression _dynamicExpression;
         private readonly int[] _parameterMap;
 
@@ -57,7 +57,7 @@ namespace Expressions
             return parameterMap.ToArray();
         }
 
-        private DynamicSignature CompileExpression(IExpression expression, Type ownerType, Import[] imports, Type[] identifierTypes, BoundExpressionOptions options, Resolver resolver)
+        private Func<object[], object> CompileExpression(IExpression expression, Type ownerType, Import[] imports, Type[] identifierTypes, BoundExpressionOptions options, Resolver resolver)
         {
             var method = new DynamicMethod(
                 "DynamicMethod",
@@ -67,11 +67,11 @@ namespace Expressions
                 options.RestrictedSkipVisibility
             );
 
-            var il = method.GetILGenerator();
+            var generator = method.GetILGenerator();
 
-            new Compiler(il, resolver).Compile(expression);
+            new Compiler(generator, resolver).Compile(expression);
 
-            return (DynamicSignature)method.CreateDelegate(typeof(DynamicSignature));
+            return (Func<object[], object>)method.CreateDelegate(typeof(Func<object[], object>));
         }
 
         public object Invoke()
@@ -119,8 +119,6 @@ namespace Expressions
 
             return _compiledMethod(parameters);
         }
-
-        private delegate object DynamicSignature(object[] parameters);
     }
 
     internal sealed class BoundExpression<T> : IBoundExpression<T>

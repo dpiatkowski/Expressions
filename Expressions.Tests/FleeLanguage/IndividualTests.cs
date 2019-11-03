@@ -166,14 +166,14 @@ namespace Expressions.Test.FleeLanguage
             var variables = context.Variables;
 
             variables.Add("a", "string");
-            variables.Add("b", 100);
+            variables.Add("b", "100");
 
             var e = new DynamicExpression<string>("a + b + a.tostring()", ExpressionLanguage.Flee);
             var result = e.Invoke(context);
             Assert.Equal("string" + 100 + "string", result);
 
             variables["a"].Value = "test";
-            variables["b"].Value = 1;
+            variables["b"].Value = "1";
             result = e.Invoke(context);
             Assert.Equal("test" + 1 + "test", result);
 
