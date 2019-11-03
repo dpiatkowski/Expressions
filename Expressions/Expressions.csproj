@@ -8,6 +8,10 @@
     </PreBuildEvent>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>3021</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Antlr3.Runtime" Version="3.5.1" />
     <PackageReference Include="System.Reflection.Emit" Version="4.6.0" />

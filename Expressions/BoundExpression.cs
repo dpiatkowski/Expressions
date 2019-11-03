@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Reflection.Emit;
 using Expressions.Expressions;
 
@@ -8,7 +7,6 @@ namespace Expressions
 {
     internal sealed class BoundExpression : IBoundExpression
     {
-#pragma warning disable 0649
         private readonly DynamicSignature _compiledMethod;
         private readonly CachedDynamicExpression _dynamicExpression;
         private readonly int[] _parameterMap;
@@ -68,41 +66,8 @@ namespace Expressions
 
             new Compiler(il, resolver).Compile(expression);
 
-#if DEBUG
-            //WriteToDisk(expression, resolver);
-#endif
-
             return (DynamicSignature)method.CreateDelegate(typeof(DynamicSignature));
         }
-
-#if DEBUG
-        private void WriteToDisk(IExpression expression, Resolver resolver)
-        {
-            var name = "Output.exe";
-
-            var assemblyName = new AssemblyName(name);
-
-
-
-            var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
-
-            var moduleBuilder = assemblyBuilder.DefineDynamicModule(name);
-
-            var programClass = moduleBuilder.DefineType("Program", TypeAttributes.Public);
-
-            var mainMethod = programClass.DefineMethod("Main", MethodAttributes.Public | MethodAttributes.Static, null, new[] { typeof(string[]) });
-
-            var il = mainMethod.GetILGenerator();
-
-            new Compiler(il, resolver).Compile(expression);
-
-            programClass.CreateTypeInfo();
-
-            // TODO: this seems not be supported at the moment
-            //assemblyBuilder.SetEntryPoint(programClass.GetMethod("Main"));
-            //assemblyBuilder.Save(name);
-        }
-#endif
 
         public object Invoke()
         {
@@ -114,7 +79,9 @@ namespace Expressions
             bool hadExecutionContext = executionContext != null;
 
             if (executionContext == null)
+            {
                 executionContext = new ExpressionContext();
+            }
 
             var parameters = new object[_parameterMap.Length];
 
