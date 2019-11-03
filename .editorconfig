@@ -19,13 +19,5 @@ dotnet_style_predefined_type_for_member_access = true:suggestion
 dotnet_style_readonly_field = true:suggestion
 trim_trailing_whitespace = true
 
-[*.{scss,sass,css}]
-indent_size = 2
-trim_trailing_whitespace = true
-
-[*.json]
-indent_size = 2
-trim_trailing_whitespace = true
-
 [*.{config,csproj,nuspec,props,targets,vcxproj,vcxproj.filters,xml}]
 indent_size = 2

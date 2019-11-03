@@ -63,9 +63,14 @@ namespace Expressions
         public IBoundExpression Bind(IBindingContext binder, BoundExpressionOptions options)
         {
             if (binder == null)
+            {
                 binder = new ExpressionContext();
+            }
+
             if (options == null)
+            {
                 options = new BoundExpressionOptions();
+            }
 
             options.Freeze();
 
@@ -102,10 +107,9 @@ namespace Expressions
         /// <returns>The result of the expression.</returns>
         public object Invoke(IExpressionContext expressionContext, BoundExpressionOptions options)
         {
-            if (expressionContext == null)
-                expressionContext = new ExpressionContext();
+            var boundExpression = Bind(expressionContext ?? new ExpressionContext(), options);
 
-            return Bind(expressionContext, options).Invoke(expressionContext);
+            return boundExpression.Invoke(expressionContext);
         }
 
         /// <summary>

@@ -41,15 +41,12 @@ namespace Expressions.Test
 
         private void DoTestValidExpressions(string[] arr)
         {
-            string typeName = string.Concat("System.", arr[0]);
-            Type expressionType = Type.GetType(typeName, true, true);
-
-            ExpressionContext context = MyCurrentContext;
-            //context.Options.ResultType = expressionType;
+            var typeName = string.Concat("System.", arr[0]);
+            var expressionType = Type.GetType(typeName, true, true);
 
             var expression = new DynamicExpression(arr[1], Language);
 
-            DoTest(expression, context, arr[2], expressionType, ExpressionTests.TestCulture);
+            DoTest(expression, MyCurrentContext, arr[2], expressionType, TestCulture);
         }
 
         private void DoTestCheckedExpressions(string[] arr)
@@ -61,17 +58,16 @@ namespace Expressions.Test
             var imports = new[]
             {
                 new Import(typeof(Math))
-           };
-
-            ExpressionContext context = new ExpressionContext(imports, MyValidExpressionsOwner);
+            };
 
             try
             {
                 var e = new DynamicExpression(expression, Language);
-                e.Invoke(context, new BoundExpressionOptions
-                {
-                    Checked = @checked
-                });
+
+                e.Invoke(
+                    new ExpressionContext(imports, MyValidExpressionsOwner),
+                    new BoundExpressionOptions { Checked = @checked }
+                );
 
                 Assert.False(shouldOverflow);
             }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -15,7 +14,6 @@ namespace Expressions.Test
         public ExpressionLanguage Language { get; private set; }
 
         private const char SEPARATOR_CHAR = ';';
-        protected delegate void LineProcessor(string[] lineParts);
 
         protected ExpressionOwner MyValidExpressionsOwner = new ExpressionOwner();
         protected ExpressionContext MyGenericContext;
@@ -48,8 +46,7 @@ namespace Expressions.Test
                 new Import(typeof(IComparable)),
                 new Import(typeof(ICloneable)),
                 new Import(typeof(Array)),
-                new Import(typeof(System.Delegate)),
-                //new Import(typeof(AppDomainInitializer)), // TODO: nope
+                new Import(typeof(Delegate)),
                 new Import(typeof(System.Text.Encoding)),
                 new Import(typeof(System.Text.ASCIIEncoding)),
                 new Import(typeof(ArgumentException))
@@ -112,11 +109,6 @@ namespace Expressions.Test
             }
         }
 
-        protected void AssertCompileException(string expression, ExpressionContext context)
-        {
-            AssertCompileException(expression, context, null);
-        }
-
         protected void AssertCompileException(string expression, ExpressionContext context, BoundExpressionOptions options)
         {
             try
@@ -133,7 +125,9 @@ namespace Expressions.Test
         {
             try
             {
-                new DynamicExpression(expression, Language).Bind(context, options);
+                var dynamicExpressions = new DynamicExpression(expression, Language);
+                dynamicExpressions.Bind(context, options);
+
                 Assert.True(false, "Compile exception expected");
             }
             catch (ExpressionsException ex)
@@ -209,7 +203,7 @@ namespace Expressions.Test
             }
         }
 
-        protected void ProcessScriptTests(string scriptFileName, LineProcessor processor)
+        protected void ProcessScriptTests(string scriptFileName, Action<string[]> processor)
         {
             using (var file = File.OpenRead(GetTestDataFilePath(scriptFileName)))
             using (var sr = new StreamReader(file))
@@ -218,7 +212,7 @@ namespace Expressions.Test
             }
         }
 
-        private void ProcessLines(TextReader sr, LineProcessor processor)
+        private void ProcessLines(TextReader sr, Action<string[]> processor)
         {
             int lineNumber = 1;
 
@@ -232,7 +226,7 @@ namespace Expressions.Test
             }
         }
 
-        private void ProcessLine(string line, LineProcessor processor, int lineNumber)
+        private void ProcessLine(string line, Action<string[]> processor, int lineNumber)
         {
             if (line.StartsWith("'"))
             {

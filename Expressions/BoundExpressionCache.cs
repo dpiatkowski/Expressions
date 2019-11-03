@@ -31,9 +31,7 @@ namespace Expressions
 
             lock (_syncRoot)
             {
-                BoundExpression boundExpression;
-
-                if (!_cache.TryGetValue(key, out boundExpression))
+                if (!_cache.TryGetValue(key, out var boundExpression))
                 {
                     boundExpression = new BoundExpression(
                         _dynamicExpression,
@@ -73,7 +71,9 @@ namespace Expressions
                 Imports = new Import[imports == null ? 0 : imports.Count];
 
                 if (Imports.Length > 0)
+                {
                     imports.CopyTo(Imports, 0);
+                }
 
                 IdentifierTypes = new Type[identifiers.Count];
 
@@ -89,7 +89,9 @@ namespace Expressions
             public override bool Equals(object obj)
             {
                 if (ReferenceEquals(this, obj))
+                {
                     return true;
+                }
 
                 var other = obj as CacheKey;
 
@@ -99,18 +101,24 @@ namespace Expressions
                     Imports.Length != other.Imports.Length ||
                     !Options.Equals(other.Options)
                 )
+                {
                     return false;
+                }
 
                 for (int i = 0; i < Imports.Length; i++)
                 {
                     if (!Equals(Imports[i], other.Imports[i]))
+                    {
                         return false;
+                    }
                 }
 
                 for (int i = 0; i < IdentifierTypes.Length; i++)
                 {
                     if (!ReferenceEquals(IdentifierTypes[i], other.IdentifierTypes[i]))
+                    {
                         return false;
+                    }
                 }
 
                 return true;
@@ -135,7 +143,9 @@ namespace Expressions
                         for (int i = 0; i < IdentifierTypes.Length; i++)
                         {
                             if (IdentifierTypes[i] != null)
+                            {
                                 hashCode = ObjectUtil.CombineHashCodes(hashCode, IdentifierTypes[i].GetHashCode());
+                            }
                         }
 
                         _hashCode = hashCode;

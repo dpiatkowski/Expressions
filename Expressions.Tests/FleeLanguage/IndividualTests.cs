@@ -137,24 +137,18 @@ namespace Expressions.Test.FleeLanguage
             new DynamicExpression<long>("long.maxvalue * 2", ExpressionLanguage.Flee).Bind(null);
         }
 
-        [Fact(DisplayName = "Test expression variables")]
-        public void TestVariables()
+        [Fact(DisplayName = "Test expressions value type variables")]
+        public void TestValueTypeVariables()
         {
-            this.TestValueTypeVariables();
-            this.TestReferenceTypeVariables();
-        }
-
-        private void TestValueTypeVariables()
-        {
-            ExpressionContext context = new ExpressionContext();
-            VariableCollection variables = context.Variables;
+            var context = new ExpressionContext();
+            var variables = context.Variables;
 
             variables.Add("a", 100);
             variables.Add("b", -100);
             variables.Add("c", DateTime.Now);
 
             var e1 = new DynamicExpression<int>("a+b", ExpressionLanguage.Flee);
-            int result = e1.Invoke(context);
+            var result = e1.Invoke(context);
             Assert.Equal(100 + -100, result);
 
             variables["B"].Value = 1000;
@@ -163,23 +157,19 @@ namespace Expressions.Test.FleeLanguage
 
             var e2 = new DynamicExpression<string>("c.tolongdatestring() + c.Year.tostring()", ExpressionLanguage.Flee);
             Assert.Equal(DateTime.Now.ToLongDateString() + DateTime.Now.Year, e2.Invoke(context));
-
-            // Test null value
-            //variables["a"].Value = null;
-            //e1 = new DynamicExpression<int>("a", ExpressionLanguage.Flee);
-            //Assert.AreEqual(0, e1.Invoke(context));
         }
 
-        private void TestReferenceTypeVariables()
+        [Fact(DisplayName = "Test expressions reference type variables")]
+        public void TestReferenceTypeVariables()
         {
-            ExpressionContext context = new ExpressionContext();
-            VariableCollection variables = context.Variables;
+            var context = new ExpressionContext();
+            var variables = context.Variables;
 
             variables.Add("a", "string");
             variables.Add("b", 100);
 
             var e = new DynamicExpression<string>("a + b + a.tostring()", ExpressionLanguage.Flee);
-            string result = e.Invoke(context);
+            var result = e.Invoke(context);
             Assert.Equal("string" + 100 + "string", result);
 
             variables["a"].Value = "test";
@@ -201,7 +191,7 @@ namespace Expressions.Test.FleeLanguage
             ExpressionContext context = new ExpressionContext(null, owner);
 
             // Private field, access should be denied
-            AssertCompileException("privateField1", context);
+            AssertCompileException("privateField1", context, null);
 
             // Private field but with override allowing access
             var e = new DynamicExpression("privateField2", ExpressionLanguage.Flee);
@@ -213,7 +203,7 @@ namespace Expressions.Test.FleeLanguage
             });
 
             // Public field, access should be denied
-            AssertCompileException("PublicField1", context);
+            AssertCompileException("PublicField1", context, null);
 
             // Public field, access should be allowed
             e = new DynamicExpression("publicField1", ExpressionLanguage.Flee);
@@ -343,7 +333,7 @@ namespace Expressions.Test.FleeLanguage
         {
             ExpressionContext context = new ExpressionContext(null, new Monitor());
             context.Variables.Add("doubleA", new ExpressionOwner());
-            this.AssertCompileException("doubleA.doubleA", context);
+            this.AssertCompileException("doubleA.doubleA", context, null);
 
             // But it should work for a public member
             context = new ExpressionContext();

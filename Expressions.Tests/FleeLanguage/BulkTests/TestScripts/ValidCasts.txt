@@ -126,7 +126,6 @@ char;cast('^',char);^
 '	Reference types
 string;cast("abc", string);abc
 object;cast(Versiona, Version);System.Version
-object;cast(DelegateA, AppDomainInitializer);System.AppDomainInitializer
 object;cast(StringArr, string[]);System.string[]
 ' Casts that are already implicitly valid
 double;cast(100,double);100.0

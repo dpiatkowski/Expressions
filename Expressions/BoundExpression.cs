@@ -42,12 +42,16 @@ namespace Expressions
             var parameterMap = new List<int>();
 
             if (ownerType != null)
+            {
                 parameterMap.Add(-1);
+            }
 
-            for (int i = 0; i < identifierTypes.Length; i++)
+            for (var i = 0; i < identifierTypes.Length; i++)
             {
                 if (identifierTypes[i] != null)
+                {
                     parameterMap.Add(i);
+                }
             }
 
             return parameterMap.ToArray();
@@ -58,7 +62,8 @@ namespace Expressions
             var method = new DynamicMethod(
                 "DynamicMethod",
                 typeof(object),
-                new[] { typeof(object[]) },
+                new[] { typeof(object) },
+                typeof(BoundExpression).Module,
                 options.RestrictedSkipVisibility
             );
 
@@ -76,7 +81,7 @@ namespace Expressions
 
         public object Invoke(IExecutionContext executionContext)
         {
-            bool hadExecutionContext = executionContext != null;
+            var hadExecutionContext = executionContext != null;
 
             if (executionContext == null)
             {
@@ -85,12 +90,12 @@ namespace Expressions
 
             var parameters = new object[_parameterMap.Length];
 
-            bool ignoreCase = !DynamicExpression.IsLanguageCaseSensitive(_dynamicExpression.Language);
+            var ignoreCase = !DynamicExpression.IsLanguageCaseSensitive(_dynamicExpression.Language);
             var identifiers = _dynamicExpression.ParseResult.Identifiers;
 
-            for (int i = 0; i < parameters.Length; i++)
+            for (var i = 0; i < parameters.Length; i++)
             {
-                int index = _parameterMap[i];
+                var index = _parameterMap[i];
 
                 if (index == -1)
                 {

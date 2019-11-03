@@ -37,10 +37,12 @@ namespace Expressions.Test.CsharpLanguage.Compilation
                 throw new ArgumentNullException(nameof(expression));
             }
 
-            object actual = new DynamicExpression(
+            var dynamicExpression = new DynamicExpression(
                 expression,
                 ExpressionLanguage.Csharp
-            ).Invoke(
+            );
+
+            var actual = dynamicExpression.Invoke(
                 expressionContext ?? new ExpressionContext(),
                 options
             );

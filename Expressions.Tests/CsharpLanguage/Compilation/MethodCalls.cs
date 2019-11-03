@@ -239,14 +239,18 @@ namespace Expressions.Test.CsharpLanguage.Compilation
             public static int Params(int value, params string[] args)
             {
                 if (args == null)
+                {
                     return value - 1;
+                }
 
                 value += args.Length;
 
                 for (int i = 0; i < args.Length; i++)
                 {
                     if (args[i] != null)
+                    {
                         value++;
+                    }
                 }
 
                 return value;
@@ -256,14 +260,18 @@ namespace Expressions.Test.CsharpLanguage.Compilation
             public static int ObjectParams(int value, params object[] args)
             {
                 if (args == null)
+                {
                     return value - 1;
+                }
 
                 value += args.Length;
 
                 for (int i = 0; i < args.Length; i++)
                 {
                     if (args[i] != null)
+                    {
                         value++;
+                    }
                 }
 
                 return value;
